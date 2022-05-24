@@ -1,0 +1,25 @@
+{
+  "name": "react-sql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManhAnNguyen/Project-with-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ManhAnNguyen/Project-with-nodejs/issues"
+  },
+  "homepage": "https://github.com/ManhAnNguyen/Project-with-nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
