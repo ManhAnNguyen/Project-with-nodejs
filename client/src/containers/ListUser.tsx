@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export interface IUser {
@@ -60,6 +61,7 @@ const User = ({
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
   refresh: boolean;
 }) => {
+  const [updatedUser, setUpdatedUser] = useState<IUser>(user);
   const handleDelete = async () => {
     try {
       await axios({
@@ -73,14 +75,42 @@ const User = ({
       console.log(err);
     }
   };
+  const { name, age } = updatedUser;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await axios({
+        method: "PUT",
+        url: "http://localhost:8080/users",
+        data: updatedUser,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <SUser>
-      <h1>Name : {user.name}</h1>
+      <Link to={`/user/${user.id}`}>Name : {user.name}</Link>
       <h4>Age : {user.age}</h4>
       <button onClick={handleDelete}>DELETE</button>
-      <form>
-        <input type="text" placeholder="username" />
-        <input type="number" placeholder="age" />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="username"
+          value={name}
+          onChange={(e) =>
+            setUpdatedUser({ ...updatedUser, name: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="age"
+          value={age}
+          onChange={(e) =>
+            setUpdatedUser({ ...updatedUser, age: Number(e.target.value) })
+          }
+        />
         <button>UPDATE</button>
       </form>
     </SUser>
@@ -93,4 +123,10 @@ const SListUser = styled.div`
   align-items: center;
 `;
 
-const SUser = styled.div``;
+const SUser = styled.div`
+  a {
+    text-decoration: none;
+    color: aqua;
+    font-size: 28px;
+  }
+`;
